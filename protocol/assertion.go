@@ -90,9 +90,9 @@ func ParseCredentialRequestResponseBody(body io.Reader) (*ParsedCredentialAssert
 		return nil, err
 	}
 
-	err = par.Response.AuthenticatorData.Unmarshal(car.AssertionResponse.AuthenticatorData)
-	if err != nil {
-		return nil, ErrParsingData.WithDetails("Error unmarshalling auth data")
+	validError := par.Response.AuthenticatorData.Unmarshal(car.AssertionResponse.AuthenticatorData)
+	if validError != nil {
+		return nil, validError
 	}
 	return &par, nil
 }
@@ -124,7 +124,7 @@ func (p *ParsedCredentialAssertionData) Verify(storedChallenge string, relyingPa
 	// Handle steps 11 through 14, verifying the authenticator data.
 	validError = p.Response.AuthenticatorData.Verify(rpIDHash[:], appIDHash[:], verifyUser)
 	if validError != nil {
-		return validError
+		return ErrAuthData.WithInfo(validError.Error())
 	}
 
 	// allowedUserCredentialIDs := session.AllowedCredentialIDs
@@ -149,15 +149,13 @@ func (p *ParsedCredentialAssertionData) Verify(storedChallenge string, relyingPa
 	} else {
 		key, err = webauthncose.ParseFIDOPublicKey(credentialBytes)
 	}
-
 	if err != nil {
-		return ErrAssertionSignature.WithDetails(fmt.Sprintf("Error parsing the assertion public key: %+v", err))
+		return err
 	}
 
 	valid, err := webauthncose.VerifySignature(key, sigData, p.Response.Signature)
 	if !valid || err != nil {
 		return ErrAssertionSignature.WithDetails(fmt.Sprintf("Error validating the assertion signature: %+v\n", err))
 	}
-
 	return nil
 }

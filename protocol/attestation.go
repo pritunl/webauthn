@@ -93,9 +93,9 @@ func (ccr *AuthenticatorAttestationResponse) Parse() (*ParsedAttestationResponse
 	// Step 8. Perform CBOR decoding on the attestationObject field of the AuthenticatorAttestationResponse
 	// structure to obtain the attestation statement format fmt, the authenticator data authData, and
 	// the attestation statement attStmt.
-	err = p.AttestationObject.AuthData.Unmarshal(p.AttestationObject.RawAuthData)
-	if err != nil {
-		return nil, fmt.Errorf("error decoding auth data: %v", err)
+	validError := p.AttestationObject.AuthData.Unmarshal(p.AttestationObject.RawAuthData)
+	if validError != nil {
+		return nil, validError
 	}
 
 	if !p.AttestationObject.AuthData.Flags.HasAttestedCredentialData() {

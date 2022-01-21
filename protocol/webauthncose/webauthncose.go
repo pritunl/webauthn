@@ -275,7 +275,7 @@ func DisplayPublicKey(cpk []byte) string {
 			Type:  "RSA PUBLIC KEY",
 			Bytes: data,
 		})
-		return fmt.Sprintf("%s", pemBytes)
+		return fmt.Sprintf("%x", pemBytes)
 	case EC2PublicKeyData:
 		pKey := parsedKey.(EC2PublicKeyData)
 		var curve elliptic.Curve
@@ -302,7 +302,7 @@ func DisplayPublicKey(cpk []byte) string {
 			Type:  "PUBLIC KEY",
 			Bytes: data,
 		})
-		return fmt.Sprintf("%s", pemBytes)
+		return fmt.Sprintf("%x", pemBytes)
 	case OKPPublicKeyData:
 		pKey := parsedKey.(OKPPublicKeyData)
 		if len(pKey.XCoord) != ed25519.PublicKeySize {
@@ -318,7 +318,7 @@ func DisplayPublicKey(cpk []byte) string {
 			Type:  "PUBLIC KEY",
 			Bytes: data,
 		})
-		return fmt.Sprintf("%s", pemBytes)
+		return fmt.Sprintf("%x", pemBytes)
 
 	default:
 		return "Cannot display key of this type"
