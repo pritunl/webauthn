@@ -6,7 +6,7 @@ import (
 
 	"golang.org/x/crypto/ed25519"
 
-	"github.com/duo-labs/webauthn/protocol/webauthncbor"
+	"github.com/pritunl/webauthn/protocol/webauthncbor"
 )
 
 // TestOKPSignatureVerification is a compatibility test to ensure that removing

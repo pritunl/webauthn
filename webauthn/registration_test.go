@@ -3,7 +3,7 @@ package webauthn
 import (
 	"testing"
 
-	"github.com/duo-labs/webauthn/protocol"
+	"github.com/pritunl/webauthn/protocol"
 )
 
 func TestRegistration_FinishRegistrationFailure(t *testing.T) {

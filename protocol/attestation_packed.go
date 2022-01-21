@@ -10,8 +10,8 @@ import (
 
 	"github.com/google/uuid"
 
-	"github.com/duo-labs/webauthn/metadata"
-	"github.com/duo-labs/webauthn/protocol/webauthncose"
+	"github.com/pritunl/webauthn/metadata"
+	"github.com/pritunl/webauthn/protocol/webauthncose"
 )
 
 var packedAttestationKey = "packed"

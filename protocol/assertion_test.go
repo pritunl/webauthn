@@ -8,7 +8,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/duo-labs/webauthn/protocol/webauthncbor"
+	"github.com/pritunl/webauthn/protocol/webauthncbor"
 )
 
 func TestParseCredentialRequestResponse(t *testing.T) {

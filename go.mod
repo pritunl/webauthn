@@ -1,4 +1,4 @@
-module github.com/duo-labs/webauthn
+module github.com/pritunl/webauthn
 
 go 1.17
 
